@@ -7,7 +7,7 @@
 # INICIO
 # Declara vars
 home_zbx="/var/lib/zabbix"
-mnt_vivo="/monitoracao/zabbix/etc"
+mnt_zbx_path="/monitoracao/zabbix/etc"
 
 # Cria o diretorio home do Zabbix Agent
 mkdir $home_zbx  && chown zabbix:zabbix $home_zbx
@@ -23,16 +23,16 @@ chmod 766 $home_zbx/postgresql/*.sql
 
 # Copia o arquivo de conf do template para o /etc/zabbix
 
-cp /root/zabbix_templates/template_db_postgresql.conf $mnt_vivo/zabbix_agentd.conf.d
-chmod 766 $mnt_vivo/zabbix_agentd.conf.d/template_db_postgresql.conf
+cp /root/zabbix_templates/template_db_postgresql.conf $mnt_zbx_path/zabbix_agentd.conf.d
+chmod 766 $mnt_zbx_path/zabbix_agentd.conf.d/template_db_postgresql.conf
 
 # Backup do Arquivo de Conf do Zabbix Agent
-cp $mnt_vivo/zabbix_agentd.conf /root/zabbix_agent.conf.bak
+cp $mnt_zbx_path/zabbix_agentd.conf /root/zabbix_agent.conf.bak
 
 # Adiciona o parametro que permite caracteres especiais nos items de User Parameters
-echo 'UnsafeUserParameters=1' >> $mnt_vivo/zabbix_agentd.conf
+echo 'UnsafeUserParameters=1' >> $mnt_zbx_path/zabbix_agentd.conf
 
-if grep -i 'unsafeuserparameters=1' $mnt_vivo/zabbix_agentd.conf > /dev/null 
+if grep -i 'unsafeuserparameters=1' $mnt_zbx_path/zabbix_agentd.conf > /dev/null 
 
 		then 
 	sleep 5
